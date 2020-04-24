@@ -74,6 +74,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String KEY_SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
     private static final String KEY_VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
     private static final String DISABLE_NAV_KEYS = "disable_nav_keys";
+    private static final String KEY_NAVIGATION_ARROW_KEYS = "navigation_bar_menu_arrow_keys";
     private static final String KEY_NAVIGATION_HOME_LONG_PRESS = "navigation_home_long_press";
     private static final String KEY_NAVIGATION_HOME_DOUBLE_TAP = "navigation_home_double_tap";
     private static final String KEY_NAVIGATION_APP_SWITCH_LONG_PRESS =
@@ -115,6 +116,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private SwitchPreference mSwapVolumeButtons;
     private SwitchPreference mVolumePanelOnLeft;
     private SwitchPreference mDisableNavigationKeys;
+    private SwitchPreference mNavigationArrowKeys;
     private ListPreference mNavigationHomeLongPressAction;
     private ListPreference mNavigationHomeDoubleTapAction;
     private ListPreference mNavigationAppSwitchLongPressAction;
@@ -217,6 +219,9 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         Action edgeLongSwipeAction = Action.fromSettings(resolver,
                 LineageSettings.System.KEY_EDGE_LONG_SWIPE_ACTION,
                 Action.NOTHING);
+
+        // Navigation bar arrow keys while typing
+        mNavigationArrowKeys = (SwitchPreference) findPreference(KEY_NAVIGATION_ARROW_KEYS);
 
         // Navigation bar home long press
         mNavigationHomeLongPressAction = initList(KEY_NAVIGATION_HOME_LONG_PRESS,
@@ -630,6 +635,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                 if (DeviceUtils.isEdgeToEdgeEnabled(getContext())) {
                     mNavigationPreferencesCat.addPreference(mEdgeLongSwipeAction);
 
+                    mNavigationPreferencesCat.removePreference(mNavigationArrowKeys);
                     mNavigationPreferencesCat.removePreference(mNavigationHomeLongPressAction);
                     mNavigationPreferencesCat.removePreference(mNavigationHomeDoubleTapAction);
                     mNavigationPreferencesCat.removePreference(mNavigationAppSwitchLongPressAction);
@@ -646,11 +652,6 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
 
                     mNavigationPreferencesCat.removePreference(mEdgeLongSwipeAction);
                 }
-            } else {
-                mNavigationPreferencesCat.removePreference(mNavigationHomeLongPressAction);
-                mNavigationPreferencesCat.removePreference(mNavigationHomeDoubleTapAction);
-                mNavigationPreferencesCat.removePreference(mNavigationAppSwitchLongPressAction);
-                mNavigationPreferencesCat.removePreference(mEdgeLongSwipeAction);
             }
         }
         if (homeCategory != null) {
