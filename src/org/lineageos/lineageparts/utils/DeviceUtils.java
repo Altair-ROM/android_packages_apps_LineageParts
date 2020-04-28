@@ -42,6 +42,12 @@ import static org.lineageos.internal.util.DeviceKeysConstants.*;
 
 public class DeviceUtils {
 
+    /* returns whether the device has a notch or not. */
+    public static boolean hasNotch(Context context) {
+        return context.getResources().getBoolean(
+                org.lineageos.platform.internal.R.bool.config_haveNotch);
+    }
+
     /* returns whether the device has volume rocker or not. */
     public static boolean hasVolumeRocker(Context context) {
         final int deviceKeys = context.getResources().getInteger(
@@ -120,8 +126,7 @@ public class DeviceUtils {
     }
 
     public static boolean deviceSupportsFlashLight(Context context) {
-        CameraManager cameraManager = (CameraManager) context.getSystemService(
-                Context.CAMERA_SERVICE);
+        CameraManager cameraManager = context.getSystemService(CameraManager.class);
         try {
             String[] ids = cameraManager.getCameraIdList();
             for (String id : ids) {
