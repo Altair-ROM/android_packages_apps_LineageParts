@@ -47,7 +47,9 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
     private CheckBoxPreference mScreenshotPref;
     private CheckBoxPreference mAirplanePref;
     private CheckBoxPreference mUsersPref;
+    /*
     private CheckBoxPreference mBugReportPref;
+    */
     private CheckBoxPreference mLockDownPref;
     private CheckBoxPreference mEmergencyPref;
 
@@ -75,8 +77,10 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
                 mAirplanePref = findPreference(GLOBAL_ACTION_KEY_AIRPLANE);
             } else if (action.equals(GLOBAL_ACTION_KEY_USERS)) {
                 mUsersPref = findPreference(GLOBAL_ACTION_KEY_USERS);
+            /*
             } else if (action.equals(GLOBAL_ACTION_KEY_BUGREPORT)) {
                 mBugReportPref = findPreference(GLOBAL_ACTION_KEY_BUGREPORT);
+            */
             } else if (action.equals(GLOBAL_ACTION_KEY_LOCKDOWN)) {
                 mLockDownPref = findPreference(GLOBAL_ACTION_KEY_LOCKDOWN);
             } else if (action.equals(GLOBAL_ACTION_KEY_EMERGENCY)) {
@@ -114,10 +118,12 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
             }
         }
 
+        /*
         if (mBugReportPref != null) {
             mBugReportPref.setChecked(mLineageGlobalActions.userConfigContains(
                     GLOBAL_ACTION_KEY_BUGREPORT));
         }
+        */
 
         if (mEmergencyPref != null) {
             mEmergencyPref.setChecked(mLineageGlobalActions.userConfigContains(
@@ -149,12 +155,14 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
             value = mUsersPref.isChecked();
             mLineageGlobalActions.updateUserConfig(value, GLOBAL_ACTION_KEY_USERS);
 
+        /*
         } else if (preference == mBugReportPref) {
             value = mBugReportPref.isChecked();
             mLineageGlobalActions.updateUserConfig(value, GLOBAL_ACTION_KEY_BUGREPORT);
             Settings.Global.putInt(getContentResolver(),
                     Settings.Global.BUGREPORT_IN_POWER_MENU, value ? 1 : 0);
 
+        */
         } else if (preference == mLockDownPref) {
             value = mLockDownPref.isChecked();
             mLineageGlobalActions.updateUserConfig(value, GLOBAL_ACTION_KEY_LOCKDOWN);
@@ -172,6 +180,7 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
     }
 
     private void updatePreferences() {
+        /*
         UserInfo currentUser = mUserManager.getUserInfo(UserHandle.myUserId());
         boolean developmentSettings = Settings.Global.getInt(
                 getContentResolver(), Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) == 1;
@@ -191,6 +200,7 @@ public class PowerMenuActions extends SettingsPreferenceFragment {
                 mBugReportPref.setSummary(null);
             }
         }
+        */
 
         boolean isKeyguardSecure = mLockPatternUtils.isSecure(UserHandle.myUserId());
         boolean lockdown = Settings.Secure.getIntForUser(
